@@ -26,12 +26,14 @@ jobs:
           Body=$(echo "$release_json" | jq -r '.[0].body')
           Released_date=$(echo "$release_json" | jq -r '.[0].published_at')
           Commit_branch_name=$(echo "$release_json" | jq -r '.[0].target_commitish')
+          
           echo "Release_tag: Latest Tag is : $Release_tag"
           echo "Release_name: Latest Release Tag Name is : $Release_name"
           echo "Body: Latest Release Tag Body is : $Body"
           echo "Released_date: Timings are : $Released_date"
           echo "Commit_branch_name: Branch triggered : $Commit_branch_name"
           
+          curl -X POST -H 'Content-type: application/json' --data '{'{"issues":["RD-1"], "data": {"releaseVersion":"$Release_tag"}}'}' https://automation.atlassian.com/pro/hooks/0539d97c488d25b325d53db2f4b0ff75d57520db
           echo ::set-output name=Release_tag::"$Release_tag"
           echo ::set-output name=Release_name::"$Release_name"
           echo ::set-output name=Body::"$Body"

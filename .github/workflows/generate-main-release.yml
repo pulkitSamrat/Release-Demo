@@ -15,13 +15,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Get version fragment to bump
-        id: getVersionFragment
-        run: |
-          read -r versionFragment < ${{ env.VERSION_BUMP_FILE }}
-          echo "'$versionFragment' version will be incremented"
-          echo "::set-env name=VERSION_FRAGMENT::${versionFragment}"
-
       - name: Generate versions
         uses: HardNorth/github-version-generate@v1.1.2
         with:
